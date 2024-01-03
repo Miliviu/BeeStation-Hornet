@@ -212,6 +212,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon_state = "crema1"
 	dir = SOUTH
 	var/id = 1
+	var/cremation_cycles = 10
 
 /obj/structure/bodycontainer/crematorium/attack_robot(mob/user) //Borgs can't use crematoriums without help
 	to_chat(user, "<span class='warning'>[src] is locked against you.</span>")
@@ -265,21 +266,19 @@ GLOBAL_LIST_EMPTY(crematoriums)
 			if(O.resistance_flags & INDESTRUCTIBLE)
 				O.forceMove(src) // in case an item in container should be spared
 				conts -= O
-
 		for(var/mob/living/M in conts)
-			if (M.stat != DEAD)
+			if(cremation_cycles)
+				cremation_cycles--
+				M.adjustFireLoss(rand(1, 2))
 				M.emote("scream")
-			if(user)
-				log_combat(user, M, "cremated")
+				addtimer(CALLBACK(src, PROC_REF(cremate)), 50)
 			else
-				M.log_message("was cremated", LOG_ATTACK)
-			if(user.stat != DEAD)
-				user.investigate_log("has died from being cremated.", INVESTIGATE_DEATHS)
-			M.death(TRUE)
-			if(M) //some animals get automatically deleted on death.
-				M.ghostize()
-				qdel(M)
-
+				cremation_cycles = initial(cremation_cycles)
+				locked = FALSE
+				M.death(TRUE)
+				if(M) // Some animals get automatically deleted on death
+					M.ghostize()
+					qdel(M)
 		for(var/obj/O in conts) //conts defined above, ignores crematorium and tray
 			CHECK_TICK
 			log_game("[key_name(user)] has cremated [O.name] ([O.type]) at [AREACOORD(src)].")
