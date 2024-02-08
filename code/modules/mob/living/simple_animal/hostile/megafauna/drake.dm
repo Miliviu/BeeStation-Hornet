@@ -397,7 +397,7 @@ Difficulty: Medium
 	if(!swooping)
 		..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/Move()
+/mob/living/simple_animal/hostile/megafauna/dragon/Move(atom/newloc, direct, update_dir = TRUE, glide_size_override = 0)
 	if(!swooping)
 		..()
 
