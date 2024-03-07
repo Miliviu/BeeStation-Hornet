@@ -107,7 +107,8 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/load_circuit,
 	/client/proc/healall,
 	/client/proc/spawn_floor_cluwne,
-	/client/proc/spawnhuman
+	/client/proc/spawnhuman,
+	/client/proc/createmob,
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -273,7 +274,7 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/toggle_nuke,
 	/client/proc/cmd_display_del_log,
 	/client/proc/toggle_combo_hud,
-	/client/proc/debug_huds
+	/client/proc/debug_huds,
 	))
 GLOBAL_PROTECT(admin_verbs_hideable)
 
@@ -371,6 +372,11 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 
 
+/client/proc/createmob()
+	set name = "Create Custom Mob"
+	set category = "Fun"
+	if(holder)
+		GLOB.mob_panel.ui_interact(usr)
 
 /client/proc/admin_ghost()
 	set category = "Adminbus"

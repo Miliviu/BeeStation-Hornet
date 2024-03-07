@@ -1711,6 +1711,7 @@
 #include "code\modules\admin\battle_royale.dm"
 #include "code\modules\admin\chat_commands.dm"
 #include "code\modules\admin\check_antagonists.dm"
+#include "code\modules\admin\create_custom_mob.dm"
 #include "code\modules\admin\create_mob.dm"
 #include "code\modules\admin\create_object.dm"
 #include "code\modules\admin\create_turf.dm"
