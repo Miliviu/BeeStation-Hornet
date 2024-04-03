@@ -16,6 +16,7 @@ $include antag_rep.txt
 # Asset Transport (TGUI)
 $include resources.txt
 $include interviews.txt
+$include lua.txt
 # Performance stuff
 $include performance.txt
 # Server Policies/Rules

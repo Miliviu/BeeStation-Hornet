@@ -161,6 +161,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.world_paper_log = "[GLOB.log_directory]/paper.log"
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
 	GLOB.prefs_log = "[GLOB.log_directory]/preferences.log"
+	GLOB.lua_log = "[GLOB.log_directory]/lua.log"
 
 #ifdef UNIT_TESTS
 	GLOB.test_log = file("[GLOB.log_directory]/tests.log")
@@ -340,6 +341,7 @@ GLOBAL_VAR(restart_counter)
 		if(do_hard_reboot)
 			log_world("World hard rebooted at [time_stamp()]")
 			shutdown_logging() // See comment below.
+			AUXTOOLS_SHUTDOWN(AUXLUA)
 			TgsEndProcess()
 
 	log_world("World rebooted at [time_stamp()]")
@@ -350,6 +352,7 @@ GLOBAL_VAR(restart_counter)
 /world/Del()
 	shutdown_logging() // makes sure the thread is closed before end, else we terminate
 	AUXTOOLS_SHUTDOWN(AUXMOS)
+	AUXTOOLS_SHUTDOWN(AUXLUA)
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (debug_server)
 		LIBCALL(debug_server, "auxtools_shutdown")()

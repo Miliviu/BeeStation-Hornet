@@ -68,6 +68,9 @@
 	if (CONFIG_GET(flag/log_adminchat))
 		WRITE_LOG(GLOB.world_game_log, "ADMIN: DSAY: [text]")
 
+/proc/log_lua(text)
+	WRITE_LOG(GLOB.lua_log, text)
+
 
 /* All other items are public. */
 /proc/log_game(text)
